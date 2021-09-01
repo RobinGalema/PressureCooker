@@ -32,7 +32,7 @@ socket.on('bpm', (data) => {
 
 // Event listener for if a seizure is detected.
 socket.on("onSeizure", () => {
-    new Audio('/audio/bruh.mp3').play()
+    new Audio('/audio/counter.mp3').play()
 });
 
 /**
