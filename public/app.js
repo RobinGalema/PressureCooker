@@ -21,6 +21,20 @@ socket.on('buttonRelease', () => {
     updateButtonState(false);
 })
 
+// Event listener for the received BPM.
+socket.on('bpm', (data) => {
+    console.log('bpm', data);
+
+    const bpmText = document.getElementById('bpmState');
+
+    bpmText.innerHTML = data;
+});
+
+// Event listener for if a seizure is detected.
+socket.on("onSeizure", () => {
+    new Audio('/audio/bruh.mp3').play()
+});
+
 /**
  * Function for updating the text on the webpage if the button state has changed
  * @param {boolean} buttonPressed is the button currently being pressed, should be input value from Arduino
