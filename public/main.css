@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
+body{
+    height: 100vh;
+    background: linear-gradient(42deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 64%, rgba(0,212,255,1) 100%);
+}
+
+section{
+    height: inherit;
+}
+
+.row{
+    display: flex;
+    flex-direction: column;
+}
+
+section#arduino-poc .row{
+    height: inherit;
+    justify-content: center;
+    align-items: center;
+}
+
+section#arduino-poc .row h2{
+    font-family: 'Varela Round', sans-serif;
+    color: white;
+    font-size: 48px;
+    margin: 15px 0;
+}
+
+section#arduino-poc .row p{
+    font-family: 'Varela Round', sans-serif;
+    color: white;
+    font-size: 32px;
+    margin: 5px 0px;
+}
