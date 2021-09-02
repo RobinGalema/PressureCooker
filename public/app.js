@@ -1,61 +1,46 @@
 // Socket IO
 const socket = io();
-let circle;
 
 // Variables
-const maxBpm = 150;
+const maxBpm = 220;
+let bpm = 0;
 let isActive = false;
+let isHavingSeizure = false;
+let circle;
 let bpmMoon;
 let bpmContainer;
 let bpmText;
+let bpmHeart;
 let appTitle;
 
-// On window load function goes here
-window.onload = (event) => {
-    circle = new ProgressBar.Circle('#progress', {
-        color: '#F72585',
-        trailColor: '#2B4478',
-        trailWidth: 2,
-        strokeWidth: 2,
-        duration: 1000,
-        easing: 'easeInOut',
-        svgStyle: {
-            width: '288px'
-        }
-    });
 
+// On document ready function.
+window.onload = () => {
+    createProgressCircle('#F72585');
     bpmMoon = document.getElementById('bpm-moon');
     bpmContainer = document.getElementById('bpm-text');
     bpmText = document.getElementById('bpm-value');
-    appTitle = document.getElementById('app-title')
+    appTitle = document.getElementById('app-title');
+    bpmHeart = document.getElementById('bpm-heart');
 };
 
 // Test to see if socket is working as intended
 socket.on('pageLoaded', function() {
     console.log('Hello Socket.io');
-})
-
-// Event listener for holding the button
-socket.on('buttonHold', () => {
-    console.log('Holding button');
-    updateButtonState(true);
-})
-
-// Event listener for releasing the button
-socket.on('buttonRelease', () => {
-    console.log('Released button');
-    updateButtonState(false);
-})
+});
 
 // Event listener for the received BPM.
 socket.on('bpm', (data) => {
     console.log('bpm', data);
-    if (isActive) updateBpm(data);
+    bpm = data;
+    if (isActive) {
+        updateBpm(data);
+    }
 });
 
 // Event listener for if a seizure is detected.
 socket.on("onSeizure", () => {
-    new Audio('/audio/counter.mp3').play()
+    onSeizureDetected();
 });
 
 /**
@@ -92,9 +77,52 @@ const toggleAppState = (button) => {
     }
 
     isActive = !isActive;
-}
+};
 
-const updateBpm = (bpm) => {
-    circle.animate(bpm / maxBpm);
+const updateBpm = () => {
+    if (!isHavingSeizure) {
+        circle.animate(bpm / maxBpm);
+    }
+
     bpmText.innerHTML = Math.floor(bpm);
-}
+};
+
+const onSeizureDetected = () => {
+    if (!isHavingSeizure) {
+        new Audio('/audio/counter.mp3').play()
+        bpmHeart.style.color = '#EF233C';
+        circle.destroy();
+        createProgressCircle('#EF233C');
+        circle.animate(1, { duration: 1000 });
+        isHavingSeizure = true;
+
+        setTimeout(() => {
+            isHavingSeizure = false;
+            bpmHeart.style.color = '';
+            circle.destroy();
+            createProgressCircle('#F72585');
+            circle.animate(bpm / maxBpm);
+        }, 10500);
+    }
+
+};
+
+document.addEventListener('keydown', (key) => {
+    if (key.keyCode == 83 || key.code == 'KeyS') {
+        onSeizureDetected();
+    }
+});
+
+const createProgressCircle = (color) => {
+    circle = new ProgressBar.Circle('#progress', {
+        color: color,
+        trailColor: '#2B4478',
+        trailWidth: 2,
+        strokeWidth: 2,
+        duration: 1000,
+        easing: 'easeInOut',
+        svgStyle: {
+            width: '288px'
+        }
+    });
+};
