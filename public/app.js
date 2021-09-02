@@ -12,7 +12,9 @@ let bpmContainer;
 let bpmText;
 let bpmHeart;
 let appTitle;
-
+let button;
+let seizureAudio = new Audio('/audio/counter.mp3');
+let timeOut = setTimeout
 
 // On document ready function.
 window.onload = () => {
@@ -22,6 +24,7 @@ window.onload = () => {
     bpmText = document.getElementById('bpm-value');
     appTitle = document.getElementById('app-title');
     bpmHeart = document.getElementById('bpm-heart');
+    button = document.getElementById('startSleepButton');
 };
 
 // Test to see if socket is working as intended
@@ -62,9 +65,13 @@ const updateButtonState = (buttonPressed) => {
     return true;
 }
 
-const toggleAppState = (button) => {
+const toggleAppState = () => {
 
-    if (!isActive) {
+    if (isHavingSeizure) {
+        clearTimeout(timeOut);
+        setDefaultValues();
+    }
+    else if (!isActive) {
         bpmMoon.setAttribute('data-active', 'false');
         bpmContainer.setAttribute('data-active', 'true');
         button.innerHTML = 'Wake up';
@@ -89,21 +96,20 @@ const updateBpm = () => {
 
 const onSeizureDetected = () => {
     if (!isHavingSeizure) {
-        new Audio('/audio/counter.mp3').play()
+        seizureAudio.play()
         bpmHeart.style.color = '#EF233C';
         circle.destroy();
         createProgressCircle('#EF233C');
         circle.animate(1, { duration: 1000 });
         isHavingSeizure = true;
 
-        setTimeout(() => {
-            isHavingSeizure = false;
-            bpmHeart.style.color = '';
-            circle.destroy();
-            createProgressCircle('#F72585');
-            circle.animate(bpm / maxBpm);
+        timeOut = setTimeout(() => {
+            setDefaultValues();
         }, 10500);
     }
+
+    button.classList.add('seizure');
+    button.innerHTML = 'Stop countdown';
 
 };
 
@@ -126,3 +132,16 @@ const createProgressCircle = (color) => {
         }
     });
 };
+
+const setDefaultValues = () => {
+    isHavingSeizure = false;
+    bpmHeart.style.color = '';
+    circle.destroy();
+    createProgressCircle('#F72585');
+    circle.animate(bpm / maxBpm);
+    seizureAudio.pause();
+    seizureAudio.currentTime = 0;
+
+    button.classList.remove('seizure');
+    button.innerHTML = 'Wake up';
+}

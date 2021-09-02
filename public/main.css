@@ -33,6 +33,10 @@ button {
   font-family: inherit;
 }
 
+button.seizure {
+  background-color: #EF233C !important;
+}
+
 section {
   display: -webkit-box;
   display: -ms-flexbox;
