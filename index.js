@@ -1,12 +1,51 @@
+// Used libraries.
+const process = require('dotenv').config();
 const express = require('express');
 const app = express();
-var http = require('http').createServer(app);
+const http = require('http').createServer(app);
 const io = require("socket.io")(http);
-var publicDir = require('path').join(__dirname,'/public');
+const Readline = require('@serialport/parser-readline');
+const SerialPort = require('serialport');
 
-// Johnny Five
-var five = require("johnny-five"),
-  board, button;
+// Environment variables.
+const comPort = '\\\\.\\COM3';
+const useLogging = false;
+
+// Variables
+let amountOfMeasurements = 250;
+let measurementValues = [];
+let calculatingAverage = false;
+
+// Server variables.
+var publicDir = require('path').join(__dirname, '/public');
+const port = new SerialPort(comPort, { baudRate: 9600 }, (err) => {
+  if (err) {
+    console.error('Error: ', err);
+  }
+});
+const parser = port.pipe(new Readline({ delimeter: '\n' }));
+
+// Event listener for connection error's on the comport.
+port.on('error', (err) => {
+  console.error('Error: ', err);
+});
+
+// Event listener for receiving (parsed) data from the comport.
+parser.on('data', (data) => {
+  if (data) {
+    if (!calculatingAverage && measurementValues.length < amountOfMeasurements) {
+      measurementValues.push(Number.parseInt(data));
+    }
+    else {
+      calculateAverageBPM();
+    }
+
+    if (useLogging) {
+      console.log("Debug: ", data);
+    }
+  }
+});
+
 
 //  --- Page Loading ---
 app.get('/', (req, res) => {
@@ -16,7 +55,9 @@ app.get('/', (req, res) => {
 app.use(express.static(publicDir));
 
 io.on('connection', (socket) => {
-  console.log('a user connected');
+  if (useLogging) {
+    console.log('A user connected');
+  }
 
   io.emit('pageLoaded');
 });
@@ -25,25 +66,20 @@ http.listen(3000, () => {
   console.log('listening on *:3000');
 });
 
-let buttonReleased = false;
-
-// Arduino event listeners
-board = new five.Board();
-board.on('ready', () => {
-  // create a default instance of the button
-  let button = new five.Button(2);
-
-  board.repl.inject({
-    button: button
+// Calculates the average BPM within a certain measerument interval.
+function calculateAverageBPM() {
+  calculatingAverage = true;
+  var total = 0;
+  measurementValues.forEach(value => {
+    total += value;
   });
+  var average = total / amountOfMeasurements;
 
-  // "hold" the button is pressed for specified time.
-  button.on("hold", function() {
-    // Send info to the web client
-    io.emit("buttonHold");
-  });
+  if (average >= 150) {
+    io.emit('onSeizure');
+  }
+  io.emit('bpm', average);
 
-  button.on("release", function() {
-    io.emit("buttonRelease");
-  })
-});
+  measurementValues = [];
+  calculatingAverage = false;
+}
