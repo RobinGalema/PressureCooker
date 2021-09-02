@@ -1,8 +1,25 @@
 // Socket IO
 const socket = io();
+let circle;
 
 // Variables
+const maxBpm = 220;
 let buttonDown = false;
+
+// On window load function goes here
+window.onload = (event) => {
+    circle = new ProgressBar.Circle('#progress', {
+        color: '#F72585',
+        trailColor: '#2B4478',
+        trailWidth: 2,
+        strokeWidth: 2,
+        duration: 3000,
+        easing: 'easeInOut',
+        svgStyle: {
+            width: '288px'
+        }
+    });
+};
 
 // Test to see if socket is working as intended
 socket.on('pageLoaded', function(){
@@ -24,10 +41,7 @@ socket.on('buttonRelease', () => {
 // Event listener for the received BPM.
 socket.on('bpm', (data) => {
     console.log('bpm', data);
-
-    const bpmText = document.getElementById('bpmState');
-
-    bpmText.innerHTML = data;
+    circle.animate(bpm/maxBpm);
 });
 
 // Event listener for if a seizure is detected.

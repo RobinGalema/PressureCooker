@@ -6,6 +6,23 @@ body {
   font-family: 'Varela Round', sans-serif;
 }
 
+main {
+  height: inherit;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
 button {
   color: white;
   background-color: #F72585;
@@ -17,7 +34,6 @@ button {
 }
 
 section {
-  height: inherit;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -28,6 +44,11 @@ section {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+}
+
+.container {
+  max-width: 414px;
+  padding: 0px 25px;
 }
 
 .row {
@@ -68,5 +89,45 @@ section#arduino-poc .row p {
   color: white;
   font-size: 32px;
   margin: 5px 0px;
+}
+
+section#bpm {
+  margin: 0 0 120px 0;
+}
+
+section#bpm .bpm-container #progress {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+section#bpm .bpm-container #progress .bpm-content {
+  position: absolute;
+}
+
+section#bpm .bpm-container #progress .bpm-content #moon svg {
+  width: 168px;
+  height: 168px;
+}
+
+section#bpm .bpm-container #progress .bpm-content #bpm-text {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+section#bpm .bpm-container #progress .bpm-content #bpm-text[data-active="false"] {
+  display: none;
 }
 /*# sourceMappingURL=main.css.map */

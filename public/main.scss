@@ -1,47 +1,98 @@
-@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap'); 
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
 
 body {
-	height: 100vh;
-	background: #0D1629;
-	color: white;
-	font-family: 'Varela Round', sans-serif;
-} 
+    height: 100vh;
+    background: #0D1629;
+    color: white;
+    font-family: 'Varela Round', sans-serif;
+}
+
+main {
+    height: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
 button {
-	color: white;
-	background-color: #F72585;
-	border: none;
-	border-radius: 15px; 
-	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-	font-family: inherit;
+    color: white;
+    background-color: #F72585;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: inherit;
 }
+
 section {
-	height: inherit;
-	display: flex;
-	justify-content: center;
-	flex-direction: column;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
+
+.container {
+    max-width: 414px;
+    padding: 0px 25px;
+}
+
 .row {
-	display: flex;
-	flex-direction: column;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
+
 section#arduino-poc {
-	.row {
-		height: inherit;
-		justify-content: center;
-		align-items: center;
-		h2 {
-			font-family: 'Varela Round', sans-serif;
-			color: white;
-			font-size: 48px;
-			margin: 15px 0;
-		}
-		p {
-			font-family: 'Varela Round', sans-serif;
-			color: white;
-			font-size: 32px;
-			margin: 5px 0px;
-		}
-	}
+    .row {
+        height: inherit;
+        justify-content: center;
+        align-items: center;
+
+        h2 {
+            font-family: 'Varela Round', sans-serif;
+            color: white;
+            font-size: 48px;
+            margin: 15px 0;
+        }
+
+        p {
+            font-family: 'Varela Round', sans-serif;
+            color: white;
+            font-size: 32px;
+            margin: 5px 0px;
+        }
+    }
+}
+
+section#bpm {
+    margin: 0 0 120px 0;
+
+    .bpm-container {
+        #progress {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .bpm-content {
+                position: absolute;
+
+                #moon {
+                    svg {
+                        width: 168px;
+                        height: 168px;
+                    }
+                }
+
+                #bpm-text {
+                    display: flex;
+                    flex-direction: column;
+
+                    &[data-active="false"] {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
 }
