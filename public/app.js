@@ -13,7 +13,7 @@ window.onload = (event) => {
         trailColor: '#2B4478',
         trailWidth: 2,
         strokeWidth: 2,
-        duration: 3000,
+        duration: 1000,
         easing: 'easeInOut',
         svgStyle: {
             width: '288px'
@@ -22,7 +22,7 @@ window.onload = (event) => {
 };
 
 // Test to see if socket is working as intended
-socket.on('pageLoaded', function(){
+socket.on('pageLoaded', function() {
     console.log('Hello Socket.io');
 })
 
@@ -41,7 +41,7 @@ socket.on('buttonRelease', () => {
 // Event listener for the received BPM.
 socket.on('bpm', (data) => {
     console.log('bpm', data);
-    circle.animate(bpm/maxBpm);
+    circle.animate(data / maxBpm);
 });
 
 // Event listener for if a seizure is detected.
@@ -58,10 +58,9 @@ const updateButtonState = (buttonPressed) => {
     if (buttonPressed == buttonDown) return;
     const statusText = document.getElementById('buttonState');
 
-    if (buttonPressed){
+    if (buttonPressed) {
         statusText.innerHTML = "held down.";
-    }
-    else if (!buttonPressed){
+    } else if (!buttonPressed) {
         statusText.innerHTML = "released.";
     }
 
