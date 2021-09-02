@@ -11,9 +11,8 @@ main {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -91,10 +90,6 @@ section#arduino-poc .row p {
   margin: 5px 0px;
 }
 
-section#bpm {
-  margin: 0 0 120px 0;
-}
-
 section#bpm .bpm-container #progress {
   position: relative;
   display: -webkit-box;
@@ -112,9 +107,17 @@ section#bpm .bpm-container #progress .bpm-content {
   position: absolute;
 }
 
-section#bpm .bpm-container #progress .bpm-content #moon svg {
+section#bpm .bpm-container #progress .bpm-content #bpm-moon {
+  display: block;
+}
+
+section#bpm .bpm-container #progress .bpm-content #bpm-moon svg {
   width: 168px;
   height: 168px;
+}
+
+section#bpm .bpm-container #progress .bpm-content #bpm-moon[data-active="false"] {
+  display: none;
 }
 
 section#bpm .bpm-container #progress .bpm-content #bpm-text {
@@ -129,5 +132,19 @@ section#bpm .bpm-container #progress .bpm-content #bpm-text {
 
 section#bpm .bpm-container #progress .bpm-content #bpm-text[data-active="false"] {
   display: none;
+}
+
+section#bpm .title-container h3 {
+  font-size: 22px;
+}
+
+section#startButton button {
+  width: 288px;
+  padding: 14px 0px;
+  font-size: 22px;
+}
+
+section#stats {
+  height: 25%;
 }
 /*# sourceMappingURL=main.css.map */

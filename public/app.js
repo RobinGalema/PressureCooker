@@ -3,8 +3,11 @@ const socket = io();
 let circle;
 
 // Variables
-const maxBpm = 220;
-let buttonDown = false;
+const maxBpm = 150;
+let isActive = false;
+let bpmMoon;
+let bpmContainer;
+let bpmText;
 
 // On window load function goes here
 window.onload = (event) => {
@@ -19,6 +22,10 @@ window.onload = (event) => {
             width: '288px'
         }
     });
+
+    bpmMoon = document.getElementById('bpm-moon');
+    bpmContainer = document.getElementById('bpm-text');
+    bpmText = document.getElementById('bpm');
 };
 
 // Test to see if socket is working as intended
@@ -41,7 +48,7 @@ socket.on('buttonRelease', () => {
 // Event listener for the received BPM.
 socket.on('bpm', (data) => {
     console.log('bpm', data);
-    circle.animate(data / maxBpm);
+    if (isActive) updateBpm(data);
 });
 
 // Event listener for if a seizure is detected.
@@ -66,4 +73,25 @@ const updateButtonState = (buttonPressed) => {
 
     buttonDown = buttonPressed;
     return true;
+}
+
+const toggleAppState = (button) => {
+    
+    if (!isActive){
+        bpmMoon.setAttribute('data-active', 'false');
+        bpmContainer.setAttribute('data-active', 'true');
+        button.innerHTML = 'Wake up';
+    }
+    else if (isActive){
+        bpmMoon.setAttribute('data-active', 'true');
+        bpmContainer.setAttribute('data-active', 'false');
+        button.innerHTML = 'Start sleep';
+    }
+
+    isActive = !isActive;
+}
+
+const updateBpm = (bpm) => {
+    circle.animate(bpm / maxBpm);
+    bpm.innerHTML = bpm;
 }
