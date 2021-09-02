@@ -129,6 +129,53 @@ section#bpm .bpm-container #progress .bpm-content #bpm-text {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+section#bpm .bpm-container #progress .bpm-content #bpm-text p {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: 0px;
+  font-size: 24px;
+}
+
+section#bpm .bpm-container #progress .bpm-content #bpm-text h2 {
+  margin: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 56px;
+}
+
+section#bpm .bpm-container #progress .bpm-content #bpm-text h2 i {
+  font-size: 36px;
+  color: #F72585;
+  -webkit-animation-name: heart;
+          animation-name: heart;
+  -webkit-animation-duration: 1000ms;
+          animation-duration: 1000ms;
+  -webkit-animation-timing-function: ease-in-out;
+          animation-timing-function: ease-in-out;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-animation-direction: alternate;
+          animation-direction: alternate;
+}
+
+section#bpm .bpm-container #progress .bpm-content #bpm-text h2 span {
+  margin-left: 12px;
 }
 
 section#bpm .bpm-container #progress .bpm-content #bpm-text[data-active="false"] {
@@ -147,5 +194,27 @@ section#startButton button {
 
 section#stats {
   height: 25%;
+}
+
+@-webkit-keyframes heart {
+  from {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  to {
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+  }
+}
+
+@keyframes heart {
+  from {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  to {
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+  }
 }
 /*# sourceMappingURL=main.css.map */

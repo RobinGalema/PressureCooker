@@ -8,6 +8,7 @@ let isActive = false;
 let bpmMoon;
 let bpmContainer;
 let bpmText;
+let appTitle;
 
 // On window load function goes here
 window.onload = (event) => {
@@ -26,6 +27,7 @@ window.onload = (event) => {
     bpmMoon = document.getElementById('bpm-moon');
     bpmContainer = document.getElementById('bpm-text');
     bpmText = document.getElementById('bpm-value');
+    appTitle = document.getElementById('app-title')
 };
 
 // Test to see if socket is working as intended
@@ -81,10 +83,12 @@ const toggleAppState = (button) => {
         bpmMoon.setAttribute('data-active', 'false');
         bpmContainer.setAttribute('data-active', 'true');
         button.innerHTML = 'Wake up';
+        appTitle.style.visibility = 'hidden';
     } else if (isActive) {
         bpmMoon.setAttribute('data-active', 'true');
         bpmContainer.setAttribute('data-active', 'false');
         button.innerHTML = 'Start sleep';
+        appTitle.style.visibility = 'visible';
     }
 
     isActive = !isActive;

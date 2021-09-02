@@ -84,6 +84,32 @@ section#bpm {
                 #bpm-text {
                     display: flex;
                     flex-direction: column;
+                    justify-content: center;
+                    p {
+                        display: flex;
+                        justify-content: center;
+                        margin: 0px;
+                        font-size: 24px;
+                    }
+                    h2 {
+                        margin: 0;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        font-size: 56px;
+                        i {
+                            font-size: 36px;
+                            color: #F72585;
+                            animation-name: heart;
+                            animation-duration: 1000ms;
+                            animation-timing-function: ease-in-out;
+                            animation-iteration-count: infinite;
+                            animation-direction: alternate;
+                        }
+                        span {
+                            margin-left: 12px;
+                        }
+                    }
                     &[data-active="false"] {
                         display: none;
                     }
@@ -108,4 +134,13 @@ section#startButton {
 
 section#stats {
     height: 25%;
+}
+
+@keyframes heart {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.2);
+    }
 }
