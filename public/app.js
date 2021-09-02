@@ -141,6 +141,7 @@ const toggleAppState = () => {
         bpmContainer.setAttribute('data-active', 'false');
         button.innerHTML = 'Start sleep';
         toggleChart(false);
+        circle.animate(0);
         appTitle.style.visibility = 'visible';
     }
 
