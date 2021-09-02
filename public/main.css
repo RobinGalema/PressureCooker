@@ -1,49 +1,72 @@
-@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Varela+Round&display=swap");
 body {
-    height: 100vh;
-    background: #0D1629;
-    color: white;
-    font-family: 'Varela Round', sans-serif;
+  height: 100vh;
+  background: #0D1629;
+  color: white;
+  font-family: 'Varela Round', sans-serif;
 }
 
 button {
-    color: white;
-    background-color: #F72585;
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    font-family: inherit;
+  color: white;
+  background-color: #F72585;
+  border: none;
+  border-radius: 15px;
+  -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-family: inherit;
 }
 
 section {
-    height: inherit;
-    display: flex;
-    max-width: 1024px;
-    justify-content: center;
-    flex-direction: column;
+  height: inherit;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .row {
-    display: flex;
-    flex-direction: column;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 section#arduino-poc .row {
-    height: inherit;
-    justify-content: center;
-    align-items: center;
+  height: inherit;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 section#arduino-poc .row h2 {
-    font-family: 'Varela Round', sans-serif;
-    color: white;
-    font-size: 48px;
-    margin: 15px 0;
+  font-family: 'Varela Round', sans-serif;
+  color: white;
+  font-size: 48px;
+  margin: 15px 0;
 }
 
 section#arduino-poc .row p {
-    font-family: 'Varela Round', sans-serif;
-    color: white;
-    font-size: 32px;
-    margin: 5px 0px;
+  font-family: 'Varela Round', sans-serif;
+  color: white;
+  font-size: 32px;
+  margin: 5px 0px;
 }
+/*# sourceMappingURL=main.css.map */

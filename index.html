@@ -12,11 +12,34 @@
 <script src="app.js"></script>
 
 <body>
-    <section>
-        <div class="row">
-            <h2>Drumi</h2>
-            <button id="startSleepButton">Start Sleep</button>
-            <p>The button is currently <span id="buttonState">released</span> your current bpm <span id="bpmState" style="color: red;"></span></p>
+    <section id="bpm">
+        <div class="container">
+            <div class="row">
+                <div class="bpm-container">
+                    <div class="bpm-content">
+                        <div id="moon" data-active="true">
+                            <img src="" alt="">
+                        </div>
+                        <div id="bpm-text" data-active="false">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="startButton"">
+        <div class="container">
+            <div class="row">
+                <button id="startSleepButton">Start Sleep</button>
+            </div>
+        </div>
+    </section>
+    <section id="stats">
+        <div class="container">
+            <div class="row">
+
+            </div>
         </div>
     </section>
 </body>
