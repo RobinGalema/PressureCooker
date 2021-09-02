@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Node Arduino</title>
+    <title>Drumi</title>
     <link rel="stylesheet" href="main.css">
 </head>
 <script src="/socket.io/socket.io.js"></script>
@@ -14,14 +14,14 @@
 
 <body>
     <main>
-    <section id="bpm">
-        <div class="container">
-            <div class="row">
-                <div class="bpm-container">
-                    <div class="progress" id="progress">
-                        <div class="bpm-content">
-                            <div id="bpm-moon" data-active="true">
-                                <svg width="170" height="170" viewBox="0 0 170 170" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <section id="bpm">
+            <div class="container">
+                <div class="row">
+                    <div class="bpm-container">
+                        <div class="progress" id="progress">
+                            <div class="bpm-content">
+                                <div id="bpm-moon" data-active="true">
+                                    <svg width="170" height="170" viewBox="0 0 170 170" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g clip-path="url(#clip0)">
                                     <path d="M164.779 97.5573C163.065 97.1088 161.342 97.5196 159.827 98.5772C154.19 103.242 147.703 107.038 140.586 109.538C133.899 112.043 126.581 113.252 118.848 113.167C101.448 112.976 85.6293 105.714 74.3689 94.2038C63.1085 82.694 56.1938 66.7202 56.3844 49.3204C56.4644 42.0168 57.8309 34.9421 60.0496 28.5212C62.4879 21.6731 65.9931 15.4812 70.563 10.1603C72.5222 7.81853 72.1302 4.37682 69.7884 2.41763C68.2965 1.3271 66.5827 0.878647 64.8595 1.28945C46.5463 6.03015 30.5302 16.8115 18.9851 31.294C7.87204 45.5665 1.23237 63.3253 1.02061 82.6585C0.764149 106.073 9.98297 127.443 25.2801 143.079C40.5772 158.715 61.5253 168.397 85.1547 168.656C104.917 168.872 123.252 162.198 137.984 150.973C152.933 139.536 163.855 123.113 168.573 104.259C169.465 101.261 167.779 98.2347 164.779 97.5573Z" fill="url(#paint0_linear)"/>
                                     </g>
@@ -35,30 +35,31 @@
                                     </clipPath>
                                     </defs>
                                 </svg>
-                            </div>
-                            <div id="bpm-text" data-active="false">
-                                <h2 id="bpm">000</h2>
-                                <p>BPM</p>
+                                </div>
+                                <div id="bpm-text" data-active="false">
+                                    <i class="fas fa-heartbeat"></i>
+                                    <h2 id="bpm-value">0</h2>
+                                    <p>BPM</p>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <div class="title-container">
+                        <h3>Drumi</h3>
+                    </div>
                 </div>
-                <div class="title-container">
-                    <h3>Drumi</h3>
-                </div>
+            </div>
+        </section>
+        <section id="startButton" ">
+        <div class="container ">
+            <div class="row ">
+                <button id="startSleepButton " onclick="toggleAppState(this) ">Start Sleep</button>
             </div>
         </div>
     </section>
-    <section id="startButton"">
-        <div class="container">
-            <div class="row">
-                <button id="startSleepButton" onclick="toggleAppState(this)">Start Sleep</button>
-            </div>
-        </div>
-    </section>
-    <section id="stats">
-        <div class="container">
-            <div class="row">
+    <section id="stats ">
+        <div class="container ">
+            <div class="row ">
                 
             </div>
         </div>

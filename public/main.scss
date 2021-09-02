@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
-
+@import url('https://use.fontawesome.com/releases/v5.7.1/css/all.css');
 body {
     height: 100vh;
     background: #0D1629;
@@ -47,14 +47,12 @@ section#arduino-poc {
         height: inherit;
         justify-content: center;
         align-items: center;
-
         h2 {
             font-family: 'Varela Round', sans-serif;
             color: white;
             font-size: 48px;
             margin: 15px 0;
         }
-
         p {
             font-family: 'Varela Round', sans-serif;
             color: white;
@@ -71,26 +69,21 @@ section#bpm {
             display: flex;
             justify-content: center;
             align-items: center;
-
             .bpm-content {
                 position: absolute;
-
                 #bpm-moon {
                     display: block;
                     svg {
                         width: 168px;
                         height: 168px;
                     }
-
                     &[data-active="false"] {
                         display: none;
                     }
                 }
-
                 #bpm-text {
                     display: flex;
                     flex-direction: column;
-
                     &[data-active="false"] {
                         display: none;
                     }
@@ -98,9 +91,8 @@ section#bpm {
             }
         }
     }
-
-    .title-container{
-        h3{
+    .title-container {
+        h3 {
             font-size: 22px;
         }
     }

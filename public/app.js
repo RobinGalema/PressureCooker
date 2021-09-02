@@ -25,7 +25,7 @@ window.onload = (event) => {
 
     bpmMoon = document.getElementById('bpm-moon');
     bpmContainer = document.getElementById('bpm-text');
-    bpmText = document.getElementById('bpm');
+    bpmText = document.getElementById('bpm-value');
 };
 
 // Test to see if socket is working as intended
@@ -76,13 +76,12 @@ const updateButtonState = (buttonPressed) => {
 }
 
 const toggleAppState = (button) => {
-    
-    if (!isActive){
+
+    if (!isActive) {
         bpmMoon.setAttribute('data-active', 'false');
         bpmContainer.setAttribute('data-active', 'true');
         button.innerHTML = 'Wake up';
-    }
-    else if (isActive){
+    } else if (isActive) {
         bpmMoon.setAttribute('data-active', 'true');
         bpmContainer.setAttribute('data-active', 'false');
         button.innerHTML = 'Start sleep';
@@ -93,5 +92,5 @@ const toggleAppState = (button) => {
 
 const updateBpm = (bpm) => {
     circle.animate(bpm / maxBpm);
-    bpm.innerHTML = bpm;
+    bpmText.innerHTML = Math.floor(bpm);
 }
