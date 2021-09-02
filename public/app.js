@@ -67,11 +67,10 @@ const updateButtonState = (buttonPressed) => {
 
 const toggleAppState = () => {
 
-    if (isHavingSeizure) {
+    if (isHavingSeizure && isActive) {
         clearTimeout(timeOut);
         setDefaultValues();
-    }
-    else if (!isActive) {
+    } else if (!isActive) {
         bpmMoon.setAttribute('data-active', 'false');
         bpmContainer.setAttribute('data-active', 'true');
         button.innerHTML = 'Wake up';
