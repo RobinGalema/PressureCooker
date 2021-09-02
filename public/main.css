@@ -1,7 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Varela+Round&display=swap");
 @import url("https://use.fontawesome.com/releases/v5.7.1/css/all.css");
+html {
+  overflow: hidden;
+}
+
 body {
   height: 100vh;
+  width: 100vw;
+  margin: 0;
+  overflow: hidden;
   background: #0D1629;
   color: white;
   font-family: 'Varela Round', sans-serif;
