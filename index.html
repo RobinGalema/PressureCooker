@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,12 +10,15 @@
 </head>
 <script src="/socket.io/socket.io.js"></script>
 <script src="app.js"></script>
+
 <body>
-    <section id="arduino-poc">
+    <section>
         <div class="row">
-            <h2>Hello Arduino</h2>
+            <h2>Drumi</h2>
+            <button id="startSleepButton">Start Sleep</button>
             <p>The button is currently <span id="buttonState">released</span> your current bpm <span id="bpmState" style="color: red;"></span></p>
         </div>
     </section>
 </body>
+
 </html>
