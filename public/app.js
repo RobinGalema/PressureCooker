@@ -17,7 +17,7 @@ let bpmChart;
 let appTitle;
 let button;
 let seizureAudio = new Audio('/audio/counter.mp3');
-let timeOut = setTimeout
+let maxDataPoint = 10;
 
 // On document ready function.
 window.onload = () => {
@@ -40,12 +40,10 @@ window.onload = () => {
         type: 'line',
         data: {
             fill: true,
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            labels: [],
             datasets: [{
-                data: [59, 60, 61, 61, 61, 62, 59],
+                data: [],
                 borderColor: [
-                    '#F72585',
-                    '#F72585',
                     '#F72585',
                 ],
                 tension: 0.33,
@@ -115,6 +113,7 @@ socket.on('bpm', (data) => {
     bpm = data;
     if (isActive) {
         updateBpm(data);
+        addChartData(data);
     }
 });
 
@@ -214,4 +213,22 @@ const setDefaultValues = () => {
     toggleChart(true);
     button.classList.remove('seizure');
     button.innerHTML = 'Wake up';
+}
+
+const addChartData = (data) => {
+
+    bpmChart.data.labels.push(new Date());
+    bpmChart.data.datasets.forEach((dataset) => {
+        dataset.data.push(data);
+        if (dataset.data.length > maxDataPoint) {
+            dataset.data.shift();
+            bpmChart.data.labels.shift();
+        }
+    });
+    console.log(bpmChart);
+    bpmChart.update();
+    // dataPoint = dataPoint++;
+    // if (dataPoint > maxDataPoint) {
+    //     dataPoint = 0;
+    // }
 }
