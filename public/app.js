@@ -64,6 +64,10 @@ window.onload = () => {
         },
         options: {
             responsive: true,
+            animation: {
+                duration: 1000,
+                easing: 'easeInOutCubic'
+            },
             plugins: {
                 legend: {
                     display: false

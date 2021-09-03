@@ -12,7 +12,7 @@ const comPort = '\\\\.\\COM5';
 const useLogging = true;
 
 // Variables
-let amountOfMeasurements = 250;
+let amountOfMeasurements = 200;
 let measurementValues = [];
 let calculatingAverage = false;
 
