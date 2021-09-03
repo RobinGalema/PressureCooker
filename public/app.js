@@ -11,10 +11,13 @@ let bpmMoon;
 let bpmContainer;
 let bpmText;
 let bpmHeart;
+let ctx;
+let bpmChartElement;
+let bpmChart;
 let appTitle;
 let button;
 let seizureAudio = new Audio('/audio/counter.mp3');
-let timeOut = setTimeout
+let maxDataPoint = 10;
 
 // On document ready function.
 window.onload = () => {
@@ -25,7 +28,79 @@ window.onload = () => {
     appTitle = document.getElementById('app-title');
     bpmHeart = document.getElementById('bpm-heart');
     button = document.getElementById('startSleepButton');
+    bpmChartElement = document.getElementById('bpm-chart');
+    ctx = bpmChartElement.getContext('2d');
+
+    var gradientFill = ctx.createLinearGradient(500, 0, 100, 0);
+    gradientFill.addColorStop(0, "rgba(128, 182, 244, 0.6)");
+    gradientFill.addColorStop(1, "rgba(244, 144, 128, 0.6)");
+
+
+    bpmChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            fill: true,
+            labels: [],
+            datasets: [{
+                data: [],
+                borderColor: [
+                    '#F72585',
+                ],
+                tension: 0.33,
+                borderWidth: 1,
+                pointRadius: 0,
+                fill: true,
+                backgroundColor: function(context) {
+                    const chart = context.chart;
+                    const { ctx, chartArea } = chart;
+
+                    if (!chartArea) {
+                        // This case happens on initial chart load
+                        return null;
+                    }
+                    return getGradient(ctx, chartArea);
+                },
+            }],
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    display: false
+                },
+                x: {
+                    display: false,
+                }
+
+            },
+        },
+
+    });
 };
+
+let width, height, gradient;
+
+function getGradient(ctx, chartArea) {
+    const chartWidth = chartArea.right - chartArea.left;
+    const chartHeight = chartArea.bottom - chartArea.top;
+    if (gradient === null || width !== chartWidth || height !== chartHeight) {
+        // Create the gradient because this is either the first render
+        // or the size of the chart has changed
+        width = chartWidth;
+        height = chartHeight;
+        gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+        gradient.addColorStop(0, 'rgba(0,0,0,0)');
+        gradient.addColorStop(1, '#F72585');
+    }
+
+    return gradient;
+}
 
 // Test to see if socket is working as intended
 socket.on('pageLoaded', function() {
@@ -38,32 +113,16 @@ socket.on('bpm', (data) => {
     bpm = data;
     if (isActive) {
         updateBpm(data);
+        addChartData(data);
     }
 });
 
 // Event listener for if a seizure is detected.
 socket.on("onSeizure", () => {
-    onSeizureDetected();
-});
-
-/**
- * Function for updating the text on the webpage if the button state has changed
- * @param {boolean} buttonPressed is the button currently being pressed, should be input value from Arduino
- * @returns {boolean} has the state been updated?
- */
-const updateButtonState = (buttonPressed) => {
-    if (buttonPressed == buttonDown) return;
-    const statusText = document.getElementById('buttonState');
-
-    if (buttonPressed) {
-        statusText.innerHTML = "held down.";
-    } else if (!buttonPressed) {
-        statusText.innerHTML = "released.";
+    if (isActive) {
+        onSeizureDetected();
     }
-
-    buttonDown = buttonPressed;
-    return true;
-}
+});
 
 const toggleAppState = () => {
 
@@ -74,16 +133,27 @@ const toggleAppState = () => {
         bpmMoon.setAttribute('data-active', 'false');
         bpmContainer.setAttribute('data-active', 'true');
         button.innerHTML = 'Wake up';
+        toggleChart(true);
         appTitle.style.visibility = 'hidden';
-    } else if (isActive) {
+    } else {
         bpmMoon.setAttribute('data-active', 'true');
         bpmContainer.setAttribute('data-active', 'false');
         button.innerHTML = 'Start sleep';
+        toggleChart(false);
+        circle.animate(0);
         appTitle.style.visibility = 'visible';
     }
 
     isActive = !isActive;
 };
+
+const toggleChart = (display) => {
+    if (display) {
+        bpmChartElement.style.visibility = 'visible';
+    } else {
+        bpmChartElement.style.visibility = 'hidden';
+    }
+}
 
 const updateBpm = () => {
     if (!isHavingSeizure) {
@@ -101,7 +171,7 @@ const onSeizureDetected = () => {
         createProgressCircle('#EF233C');
         circle.animate(1, { duration: 1000 });
         isHavingSeizure = true;
-
+        toggleChart(false);
         timeOut = setTimeout(() => {
             setDefaultValues();
         }, 10500);
@@ -140,7 +210,25 @@ const setDefaultValues = () => {
     circle.animate(bpm / maxBpm);
     seizureAudio.pause();
     seizureAudio.currentTime = 0;
-
+    toggleChart(true);
     button.classList.remove('seizure');
     button.innerHTML = 'Wake up';
+}
+
+const addChartData = (data) => {
+
+    bpmChart.data.labels.push(new Date());
+    bpmChart.data.datasets.forEach((dataset) => {
+        dataset.data.push(data);
+        if (dataset.data.length > maxDataPoint) {
+            dataset.data.shift();
+            bpmChart.data.labels.shift();
+        }
+    });
+    console.log(bpmChart);
+    bpmChart.update();
+    // dataPoint = dataPoint++;
+    // if (dataPoint > maxDataPoint) {
+    //     dataPoint = 0;
+    // }
 }

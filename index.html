@@ -10,6 +10,7 @@
 </head>
 <script src="/socket.io/socket.io.js"></script>
 <script src="/script/progressbar.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js" integrity="sha512-Wt1bJGtlnMtGP0dqNFH1xlkLBNpEodaiQ8ZN5JLA5wpc1sUlk/O5uuOMNgvzddzkpvZ9GLyYNa8w2s7rqiTk5Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="app.js"></script>
 
 <body>
@@ -57,14 +58,14 @@
         <section id="startButton" ">
         <div class=" container ">
             <div class=" row ">
-                <button id="startSleepButton" onclick=" toggleAppState() ">Start Sleep</button>
+                <button id='startSleepButton' onclick=" toggleAppState() ">Start Sleep</button>
             </div>
         </div>
     </section>
     <section id=" stats ">
         <div class=" container ">
             <div class=" row ">
-                
+                <canvas id='bpm-chart' style="visibility: hidden; " width="500 " height="300 "></canvas>
             </div>
         </div>
     </section>
