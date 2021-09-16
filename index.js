@@ -9,7 +9,7 @@ const SerialPort = require('serialport');
 
 // Environment variables.
 const comPort = '\\\\.\\COM5';
-const useLogging = true;
+const useLogging = false;
 
 // Variables
 let amountOfMeasurements = 200;

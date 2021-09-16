@@ -229,10 +229,5 @@ const addChartData = (data) => {
             bpmChart.data.labels.shift();
         }
     });
-    console.log(bpmChart);
     bpmChart.update();
-    // dataPoint = dataPoint++;
-    // if (dataPoint > maxDataPoint) {
-    //     dataPoint = 0;
-    // }
 }
